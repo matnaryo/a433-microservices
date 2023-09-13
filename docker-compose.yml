@@ -1,0 +1,28 @@
+version: "2"
+services:
+  item-app:
+    image: item-app:14-alpine
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 80:8080
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MONGODB_HOST: mongo
+      MONGODB_USER: root
+      MONGODB_PASSWORD: dicoding
+      MONGODB_DB: item-db
+    depends_on:
+      - itetm-db
+  item-db:
+    restart: always
+    image: mongo:3
+    volumes:
+      - app-db:/data/db
+    environment:
+      MONGODB_ROOT_PASSWORD: dicoding
+      MONGODB_DATABASE: item-db
+    
+volumes:
+  app-db:
