@@ -1,13 +1,13 @@
 # Versi Docker Compose 2
 version: "2"
-# aplikasi berjalan terus
-restart: always
 # Daftar servis (container) yang akan di run
 services:
 # servis aplikasi
   item-app:
-  # Image dari registry
-    image: item-app:latest
+    # aplikasi berjalan terus
+    restart: always
+    # Image dari registry
+    image: matnaryo/item-app:v1
     # membuka port 8080 untuk host
     ports:
       - 80:8080
@@ -16,6 +16,8 @@ services:
       - item-db
 # servis database
   item-db:
+    # aplikasi berjalan terus
+    restart: always
     # menggunakan image mongodb v3
     image: mongo:3
     ports:
