@@ -14,7 +14,7 @@ services:
       MONGODB_PASSWORD: dicoding
       MONGODB_DB: item-db
     depends_on:
-      - itetm-db
+      - item-db
   item-db:
     restart: always
     image: mongo:3
