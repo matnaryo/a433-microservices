@@ -1,28 +1,26 @@
+# Versi Docker Compose 2
 version: "2"
+# aplikasi berjalan terus
+restart: always
+# Daftar servis (container) yang akan di run
 services:
+# servis aplikasi
   item-app:
-    image: item-app:14-alpine
-    command: sh -c "yarn install && yarn run dev"
+  # Image dari registry
+    image: item-app:latest
+    # membuka port 8080 untuk host
     ports:
       - 80:8080
-    working_dir: /app
-    volumes:
-      - ./:/app
-    environment:
-      MONGODB_HOST: mongo
-      MONGODB_USER: root
-      MONGODB_PASSWORD: dicoding
-      MONGODB_DB: item-db
+    # tergantung pada container item-db
     depends_on:
       - item-db
+# servis database
   item-db:
-    restart: always
+    # menggunakan image mongodb v3
     image: mongo:3
+    # container memakai volume app-db
     volumes:
       - app-db:/data/db
-    environment:
-      MONGODB_ROOT_PASSWORD: dicoding
-      MONGODB_DATABASE: item-db
-    
+# container menggunakan volume    
 volumes:
   app-db:
