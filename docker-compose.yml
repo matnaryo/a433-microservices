@@ -18,6 +18,8 @@ services:
   item-db:
     # menggunakan image mongodb v3
     image: mongo:3
+    ports:
+      - '27017:27017'
     # container memakai volume app-db
     volumes:
       - app-db:/data/db
