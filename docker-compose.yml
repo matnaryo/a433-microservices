@@ -3,28 +3,14 @@ version: "2"
 # Daftar servis (container) yang akan di run
 services:
 # servis aplikasi
-  item-app:
+  shipping-app:
     # aplikasi berjalan terus
     restart: always
     # Image dari registry
-    image: matnaryo/item-app:v1
+    image: matnaryo/shipping-app:v1
     # membuka port 8080 untuk host
     ports:
-      - 80:8080
-    # tergantung pada container item-db
+      - 3001:3001
+    # tergantung pada container RabbitMQ
     depends_on:
-      - item-db
-# servis database
-  item-db:
-    # aplikasi berjalan terus
-    restart: always
-    # menggunakan image mongodb v3
-    image: mongo:3
-    ports:
-      - '27017:27017'
-    # container memakai volume app-db
-    volumes:
-      - app-db:/data/db
-# container menggunakan volume    
-volumes:
-  app-db:
+      - rabbitmq
